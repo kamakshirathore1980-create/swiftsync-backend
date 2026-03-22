@@ -1,90 +1,121 @@
 # ⚡ SwiftSync AI — Backend
 
-Smart platform that redistributes unused resources (food, books, clothes, devices) to people who need them.
-
-Built with **Django** + **Django REST Framework** + **JWT Authentication**
+A smart platform that redistributes unused resources (food, books, clothes, devices) to people who need them.
 
 ---
 
-## 🚀 Setup (Run These Commands Once)
+## 🎯 Problem Statement
+
+In daily life, valuable resources are often wasted while many people lack access to basic necessities. SwiftSync AI solves this by connecting surplus resources with individuals and organizations in need.
+
+---
+
+## 🧠 Key Features
+
+* 📦 Resource donation system
+* 📥 Request & approval workflow
+* 🔐 Secure JWT authentication
+* 👤 User-based access control
+* 📊 Resource and request tracking
+* ⚡ RESTful API architecture
+
+---
+
+## 🛠 Tech Stack
+
+* Backend: Django
+* API: Django REST Framework
+* Authentication: JWT (SimpleJWT)
+* Database: SQLite
+
+---
+
+## 🚀 Setup Instructions
 
 ```bash
-# 1. Install all packages
+# Install dependencies
 python3 -m pip install -r requirements.txt
 
-# 2. Create the database tables
+# Apply migrations
 python3 manage.py makemigrations
 python3 manage.py migrate
 
-# 3. Create an admin user (for testing)
+# Create admin user
 python3 manage.py createsuperuser
 
-# 4. Start the server
+# Run server
 python3 manage.py runserver
 ```
 
-Server will be running at: **http://127.0.0.1:8000/**
+Server runs at: http://127.0.0.1:8000/
 
 ---
 
-## 🔑 Authentication Flow
+## 🔐 Authentication Flow
 
-### Step 1 — Register a new user
-```
+### 1. Register
+
 POST /api/auth/register/
-{
-  "username": "john",
-  "email": "john@example.com",
-  "password": "mypassword123",
-  "password2": "mypassword123"
-}
-```
 
-### Step 2 — Login to get your JWT token
-```
+### 2. Login
+
 POST /api/token/
-{
-  "username": "john",
-  "password": "mypassword123"
-}
-```
-Returns: `{ "access": "eyJ...", "refresh": "eyJ..." }`
 
-### Step 3 — Use the token in all requests
-Add this header to every request:
-```
-Authorization: Bearer eyJ...your_access_token...
-```
+### 3. Use Token
+
+Authorization: Bearer <access_token>
 
 ---
 
 ## 📡 API Endpoints
 
-| Method | URL | Description | Auth Required |
-|--------|-----|-------------|---------------|
-| POST | `/api/auth/register/` | Register new user | ❌ |
-| GET/PUT | `/api/auth/profile/` | View/edit your profile | ✅ |
-| POST | `/api/token/` | Login — get JWT tokens | ❌ |
-| POST | `/api/token/refresh/` | Refresh access token | ❌ |
-| GET | `/api/resources/` | List all resources | ✅ |
-| POST | `/api/resources/` | Donate a resource | ✅ |
-| GET | `/api/resources/{id}/` | Get one resource | ✅ |
-| PUT/PATCH | `/api/resources/{id}/` | Update resource (donor only) | ✅ |
-| DELETE | `/api/resources/{id}/` | Delete resource (donor only) | ✅ |
-| GET | `/api/resources/my/` | Your donated resources | ✅ |
-| PATCH | `/api/resources/{id}/mark_claimed/` | Mark as claimed | ✅ |
-| GET | `/api/requests/` | List requests | ✅ |
-| POST | `/api/requests/` | Request a resource | ✅ |
-| GET | `/api/requests/{id}/` | Get one request | ✅ |
-| DELETE | `/api/requests/{id}/` | Cancel your request | ✅ |
-| GET | `/api/requests/my/` | Your submitted requests | ✅ |
-| PATCH | `/api/requests/{id}/approve/` | Approve request (donor) | ✅ |
-| PATCH | `/api/requests/{id}/reject/` | Reject request (donor) | ✅ |
-| GET | `/api/stats/` | Platform statistics | ✅ |
+### Authentication
+
+* POST /api/auth/register/
+* POST /api/token/
+* POST /api/token/refresh/
+
+### Resources
+
+* GET /api/resources/
+* POST /api/resources/
+* GET /api/resources/{id}/
+* PUT /api/resources/{id}/
+* DELETE /api/resources/{id}/
+
+### Requests
+
+* POST /api/requests/
+* GET /api/requests/
+* DELETE /api/requests/{id}/
 
 ---
 
-## 🧪 Run Tests
+## 📁 Project Structure
+
+swiftsync/
+├── api/
+│   ├── models.py
+│   ├── serializers.py
+│   ├── views.py
+│   ├── urls.py
+│
+├── swiftsync/
+│   ├── settings.py
+│   ├── urls.py
+│
+├── manage.py
+├── requirements.txt
+
+---
+
+## 🛠 Admin Panel
+
+Access: http://127.0.0.1:8000/admin/
+
+---
+
+## 🧪 Testing
 
 ```bash
 python3 manage.py test api
@@ -92,36 +123,16 @@ python3 manage.py test api
 
 ---
 
-## 🛠 Admin Panel
+## 🌍 Future Scope
 
-Go to: http://127.0.0.1:8000/admin/
-Login with your superuser credentials.
+* AI-based smart matching
+* NGO verification system
+* Real-time notifications
+* Mobile app integration
 
 ---
 
-## 📁 Project Structure
+## 🧠 Developed For
 
-```
-swiftsync/
-  ├── api/
-  │    ├── migrations/        ← database migration files
-  │    ├── __init__.py
-  │    ├── admin.py           ← admin panel config
-  │    ├── apps.py            ← app config
-  │    ├── models.py          ← Resource + Request database models
-  │    ├── serializers.py     ← JSON conversion + validation
-  │    ├── views.py           ← API logic / endpoints
-  │    ├── urls.py            ← API URL routing
-  │    └── tests.py           ← automated tests
-  │
-  ├── swiftsync/
-  │    ├── __init__.py
-  │    ├── asgi.py
-  │    ├── settings.py        ← all project configuration
-  │    ├── urls.py            ← main URL file
-  │    └── wsgi.py
-  │
-  ├── manage.py               ← Django CLI tool
-  ├── requirements.txt        ← package dependencies
-  └── db.sqlite3              ← SQLite database (auto-created)
-```
+Capstone Project — SwiftSync AI
+Backend Module: API, Server & Database Management
