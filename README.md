@@ -32,10 +32,10 @@ In daily life, valuable resources are often wasted while many people lack access
 
 ## 🚀 Setup Instructions
 
+```bash
 git clone https://github.com/kamakshirathore1980-create/swiftsync-backend.git
 cd swiftsync-backend
 
-```bash
 # Install dependencies
 python3 -m pip install -r requirements.txt
 
@@ -66,19 +66,23 @@ POST /api/token/
 
 ### 3. Use Token
 
+Add this in headers:
+
+```
 Authorization: Bearer <access_token>
+```
 
 ---
 
 ## 📡 API Endpoints
 
-### Authentication
+### 🔐 Authentication
 
 * POST /api/auth/register/
 * POST /api/token/
 * POST /api/token/refresh/
 
-### Resources
+### 📦 Resources
 
 * GET /api/resources/
 * POST /api/resources/
@@ -86,7 +90,9 @@ Authorization: Bearer <access_token>
 * PUT /api/resources/{id}/
 * DELETE /api/resources/{id}/
 
-### Requests
+⚠️ Note: Resource creation automatically assigns the logged-in user as the donor.
+
+### 📥 Requests
 
 * POST /api/requests/
 * GET /api/requests/
@@ -96,6 +102,7 @@ Authorization: Bearer <access_token>
 
 ## 📁 Project Structure
 
+```
 swiftsync/
 ├── api/
 │   ├── models.py
@@ -109,6 +116,7 @@ swiftsync/
 │
 ├── manage.py
 ├── requirements.txt
+```
 
 ---
 
@@ -139,3 +147,4 @@ python3 manage.py test api
 
 Capstone Project — SwiftSync AI
 Backend Module: API, Server & Database Management
+
