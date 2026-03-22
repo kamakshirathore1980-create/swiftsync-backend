@@ -32,6 +32,9 @@ In daily life, valuable resources are often wasted while many people lack access
 
 ## 🚀 Setup Instructions
 
+git clone https://github.com/kamakshirathore1980-create/swiftsync-backend.git
+cd swiftsync-backend
+
 ```bash
 # Install dependencies
 python3 -m pip install -r requirements.txt
