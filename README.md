@@ -1,4 +1,3 @@
-````md
 # ⚡ SwiftSync AI — Backend
 
 A smart platform that redistributes unused resources (food, books, clothes, devices) to people who need them.
