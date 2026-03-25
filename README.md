@@ -147,6 +147,25 @@ Authorization: Bearer <access_token>
 ### 📊 Stats
 
 * GET `/api/stats/`
+---
+
+
+## ⚡ Quick Test (Postman / Frontend)
+
+1. Register user  
+POST `/api/register/`
+
+2. Login  
+POST `/api/token/`
+
+3. Copy `access` token
+
+4. Use in headers:
+Authorization: Bearer <token>
+
+5. Call protected APIs like:
+GET `/api/resources/`
+
 
 ---
 
