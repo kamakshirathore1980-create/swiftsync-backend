@@ -1,27 +1,28 @@
 """
-Django settings for SwiftSync AI project.
+Django settings for SwiftSync AI project (Production Ready).
 """
 
 from pathlib import Path
 from datetime import timedelta
+import os
 
 # ─── Base Paths ───────────────────────────────────────────────────────────────
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # ─── Security ────────────────────────────────────────────────────────────────
-# IMPORTANT: Change this to a long random string before deploying to production!
-SECRET_KEY = 'django-insecure-swiftsync-ai-secret-key-change-in-production-2024'
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY',
+    'django-insecure-fallback-key-change-this'
+)
 
-# Set to False in production and set ALLOWED_HOSTS properly
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['*']
 
 
 # ─── Installed Apps ───────────────────────────────────────────────────────────
 INSTALLED_APPS = [
-    # Django built-ins
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -29,13 +30,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Third-party packages
+    # Third-party
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
     'django_filters',
 
-    # Our app
+    # Local
     'api.apps.ApiConfig',
 ]
 
@@ -43,7 +44,7 @@ INSTALLED_APPS = [
 # ─── Middleware ───────────────────────────────────────────────────────────────
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'corsheaders.middleware.CorsMiddleware',      # Must be before CommonMiddleware
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -104,33 +105,31 @@ USE_I18N = True
 USE_TZ = True
 
 
-# ─── Static Files ─────────────────────────────────────────────────────────────
+# ─── Static Files (IMPORTANT FOR RENDER) ─────────────────────────────────────
 STATIC_URL = 'static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # ─── CORS Configuration ───────────────────────────────────────────────────────
-# Allow any frontend to connect during development
 CORS_ALLOW_ALL_ORIGINS = True
 
 
-# ─── Django REST Framework Configuration ─────────────────────────────────────
+# ─── Django REST Framework ────────────────────────────────────────────────────
 REST_FRAMEWORK = {
-    # Use JWT for all API authentication
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    # Require authentication by default (override per-view with AllowAny)
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
-    # Enable filtering support
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
         'rest_framework.filters.SearchFilter',
         'rest_framework.filters.OrderingFilter',
     ],
-    # Pagination: return 10 items per page
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
 }
@@ -138,14 +137,9 @@ REST_FRAMEWORK = {
 
 # ─── JWT Configuration ────────────────────────────────────────────────────────
 SIMPLE_JWT = {
-    # Access token valid for 1 day
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
-    # Refresh token valid for 7 days
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
-    # Issue a new refresh token each time you refresh
     'ROTATE_REFRESH_TOKENS': True,
-    # Algorithm used to sign tokens
     'ALGORITHM': 'HS256',
-    # Header prefix: Authorization: Bearer <token>
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
