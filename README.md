@@ -20,52 +20,56 @@ SwiftSync AI solves this by connecting surplus resources with individuals and or
 
 ## 🧠 Key Features
 
-* 📦 Resource donation system  
-* 📥 Request & approval workflow  
-* 🔐 Secure JWT authentication  
-* 👤 User-based access control  
-* 📊 Resource and request tracking  
-* ⚡ RESTful API architecture  
+- 📦 Resource donation system  
+- 📥 Request & approval workflow  
+- 🔐 Secure JWT authentication  
+- 👤 User-based access control  
+- 📊 Resource and request tracking  
+- ⚡ RESTful API architecture  
 
 ---
 
 ## 🛠 Tech Stack
 
-* Backend: Django  
-* API: Django REST Framework  
-* Authentication: JWT (SimpleJWT)  
-* Database: SQLite (development) / Render environment (production)  
+- Backend: Django  
+- API: Django REST Framework  
+- Authentication: JWT (SimpleJWT)  
+- Database: SQLite (development) / Render environment (production)  
 
 ---
 
 ## 🚀 Setup Instructions (Local)
 
+### 🪟 Windows
+
 ```bash
-git clone https://github.com/kamakshirathore1980-create/swiftsync-backend.git
-cd swiftsync-backend
+python -m pip install -r requirements.txt
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py runserver
+```
 
-# Install dependencies
+---
+
+### 🍎🐧 Mac/Linux
+
+```bash
 python3 -m pip install -r requirements.txt
-
-# Apply migrations
 python3 manage.py migrate
-
-# Create admin user
 python3 manage.py createsuperuser
-
-# Run server
 python3 manage.py runserver
-````
+```
 
-Server runs at:
-[http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+---
+
+Server runs at:  
+http://127.0.0.1:8000/
 
 ---
 
 ## 🔐 Authentication Flow
 
 ### 1. Register
-
 POST `/api/register/`
 
 ```json
@@ -79,7 +83,6 @@ POST `/api/register/`
 ---
 
 ### 2. Login
-
 POST `/api/token/`
 
 ```json
@@ -116,39 +119,39 @@ Authorization: Bearer <access_token>
 
 ### 🔐 Authentication
 
-* POST `/api/register/`
-* POST `/api/token/`
-* POST `/api/token/refresh/`
+- POST `/api/register/`
+- POST `/api/token/`
+- POST `/api/token/refresh/`
 
 ---
 
 ### 📦 Resources
 
-* GET `/api/resources/`
-* POST `/api/resources/`
-* GET `/api/resources/{id}/`
-* PUT `/api/resources/{id}/`
-* DELETE `/api/resources/{id}/`
-* GET `/api/resources/my/`
+- GET `/api/resources/`
+- POST `/api/resources/`
+- GET `/api/resources/{id}/`
+- PUT `/api/resources/{id}/`
+- DELETE `/api/resources/{id}/`
+- GET `/api/resources/my/`
 
 ---
 
 ### 📥 Requests
 
-* GET `/api/requests/`
-* POST `/api/requests/`
-* GET `/api/requests/my/`
-* PATCH `/api/requests/{id}/approve/`
-* PATCH `/api/requests/{id}/reject/`
-* DELETE `/api/requests/{id}/`
+- GET `/api/requests/`
+- POST `/api/requests/`
+- GET `/api/requests/my/`
+- PATCH `/api/requests/{id}/approve/`
+- PATCH `/api/requests/{id}/reject/`
+- DELETE `/api/requests/{id}/`
 
 ---
 
 ### 📊 Stats
 
-* GET `/api/stats/`
----
+- GET `/api/stats/`
 
+---
 
 ## ⚡ Quick Test (Postman / Frontend)
 
@@ -158,23 +161,22 @@ POST `/api/register/`
 2. Login  
 POST `/api/token/`
 
-3. Copy `access` token
+3. Copy `access` token  
 
-4. Use in headers:
+4. Use in headers:  
 Authorization: Bearer <token>
 
-5. Call protected APIs like:
+5. Call protected APIs like:  
 GET `/api/resources/`
-
 
 ---
 
 ## ⚠️ Notes
 
-* First request may take ~30–50 seconds (Render free tier cold start)
-* JWT Access Token expires in 1 day
-* Refresh Token expires in 7 days
-* All protected routes require Authorization header
+- First request may take ~30–50 seconds (Render free tier cold start)  
+- JWT Access Token expires in 1 day  
+- Refresh Token expires in 7 days  
+- All protected routes require Authorization header  
 
 ---
 
@@ -200,8 +202,8 @@ swiftsync/
 
 ## 🛠 Admin Panel
 
-Access (local):
-[http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
+Access (local):  
+http://127.0.0.1:8000/admin/
 
 ---
 
@@ -215,17 +217,14 @@ python3 manage.py test api
 
 ## 🌍 Future Scope
 
-* 🤖 AI-based smart resource matching
-* 🏢 NGO verification system
-* 🔔 Real-time notifications
-* 📱 Mobile app integration
+- 🤖 AI-based smart resource matching  
+- 🏢 NGO verification system  
+- 🔔 Real-time notifications  
+- 📱 Mobile app integration  
 
 ---
 
 ## 👨‍💻 Developed By
 
-**Kamakshi Rathore**
+**Kamakshi Rathore**  
 Backend Developer — SwiftSync AI
-
-```
-
