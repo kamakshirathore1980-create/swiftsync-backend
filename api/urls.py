@@ -30,3 +30,11 @@ urlpatterns = [
     # ─── STATS ────────────────────────────
     path('stats/', StatsView.as_view(), name='stats'),
 ]
+
+
+from .views import health_check
+
+urlpatterns = [
+    # existing routes...
+    path("health/", health_check),
+]
