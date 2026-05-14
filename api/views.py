@@ -218,3 +218,12 @@ class StatsView(APIView):
             "approved_requests": Request.objects.filter(status='approved').count(),
             "rejected_requests": Request.objects.filter(status='rejected').count(),
         })
+
+
+
+
+
+from django.http import JsonResponse
+
+def health_check(request):
+    return JsonResponse({"status": "ok"})
