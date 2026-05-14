@@ -8,6 +8,7 @@ from .views import (
     RegisterView,
     ProfileView,
     StatsView,
+    health_check
 )
 
 # Router for ViewSets
@@ -19,22 +20,17 @@ urlpatterns = [
     # Router endpoints
     path('', include(router.urls)),
 
-    # ─── AUTH ─────────────────────────────
+    # AUTH
     path('register/', RegisterView.as_view(), name='register'),
     path('profile/', ProfileView.as_view(), name='profile'),
 
-    # ─── JWT AUTH ─────────────────────────
+    # JWT AUTH
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
-    # ─── STATS ────────────────────────────
+    # STATS
     path('stats/', StatsView.as_view(), name='stats'),
-]
 
-
-from .views import health_check
-
-urlpatterns = [
-    # existing routes...
-    path("health/", health_check),
+    # HEALTH CHECK
+    path('health/', health_check),
 ]
