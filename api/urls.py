@@ -8,23 +8,21 @@ from .views import (
     RegisterView,
     ProfileView,
     StatsView,
-    health_check
+    health_check,
 )
 
-# Router for ViewSets
 router = DefaultRouter()
 router.register(r'resources', ResourceViewSet, basename='resource')
 router.register(r'requests', RequestViewSet, basename='request')
 
 urlpatterns = [
-    # Router endpoints
     path('', include(router.urls)),
 
     # AUTH
     path('register/', RegisterView.as_view(), name='register'),
     path('profile/', ProfileView.as_view(), name='profile'),
 
-    # JWT AUTH
+    # JWT
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
@@ -32,5 +30,5 @@ urlpatterns = [
     path('stats/', StatsView.as_view(), name='stats'),
 
     # HEALTH CHECK
-    path('health/', health_check),
+    path('health/', health_check, name='health'),
 ]
